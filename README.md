@@ -1,82 +1,32 @@
-[![Review Assignment Due Date](https://classroom.github.com/assets/deadline-readme-button-22041afd0340ce965d47ae6ef1cefeee28c7c493a6346c4f15d667ab976d596c.svg)](https://classroom.github.com/a/brKTKdOU)
-# Portfolio Piece Assignment
+# Detecting Sarcasm in News Headlines using NLP
 
-This repository is a template for your portfolio piece. You'll build on your weekly labs to create a polished, well-documented project that demonstrates your understanding of the concepts we've covered.
+## Overview
+Sarcasm detection is a notoriously difficult Natural Language Processing (NLP) task because it relies heavily on nuance, context, and phrasing rather than purely negative or positive words. This project aims to classify roughly 28,000 news headlines as either "Sarcastic" (*The Onion*) or "Serious" (*HuffPost*) to demonstrate how specific text preprocessing strategies can capture comedic intent.
 
-## What You're Building
+## Methods
+I used a TF-IDF (Term Frequency-Inverse Document Frequency) vectorizer paired with a Logistic Regression classifier. 
+* **Sarcasm-Specific Cleaning:** Unlike standard sentiment analysis, I intentionally kept stop words and punctuation (like "!" and "?") because common words and structures are often essential to the structure of sarcastic headlines.
+* **N-Grams:** I utilized an `ngram_range=(1,2)` to capture bigrams (like "Area Man" or "Yeah right"), which exploratory data analysis revealed to be strong contextual predictors of sarcasm. 
 
-Your portfolio piece could be a Jupyter notebook (or set of notebooks), or another reporting format (PDF with embedded images, etc.) that:
-- Demonstrates understanding of course concepts
-- Includes working, well-documented code (in notebooks or imported scripts)
-- Analyzes results critically
-- Tells a clear story from problem/question to approach to results and insights
+## Key Results
+* The Logistic Regression model successfully differentiated between serious reporting and satirical headlines with high accuracy.
+* Feature importance and frequency analysis revealed that specific bigrams were heavily weighted indicators of sarcasm. 
+* Error analysis showed that the model struggles primarily with "World Knowledge"—it misclassifies satirical headlines that mimic serious journalistic tones because it lacks the real-world context to understand the absurdity of the event.
 
-If you'd like, this can become part of your professional portfolio, so treat it as work you'd be proud to show a potential employer or collaborator.
+## How to Run
+1. Clone this repository to your local machine.
+2. Download the "News Headlines Dataset for Sarcasm Detection" (v2) from Kaggle.
+3. Place the downloaded `Sarcasm_Headlines_Dataset_v2.json` file into a `data/` folder in the root of this repository.
+4. Open `notebooks/main_analysis.ipynb` in Jupyter Notebook or JupyterLab.
+5. Run the cells sequentially to reproduce the exploratory data analysis, text cleaning, model training, and visualizations.
 
-## Grading
+## Requirements
+The following packages are required to run this notebook:
+* pandas
+* numpy
+* scikit-learn
+* matplotlib
+* seaborn
 
-Your work will be evaluated on:
-- **Conceptual Understanding** (5 pts): Do you explain *why* you chose specific methods? Do you connect to course material?
-- **Technical Implementation** (5 pts): Does your code run without errors? Do all components work correctly?
-- **Code Quality & Documentation** (5 pts): Is your notebook/code clear and well-organized? Does it tell a story?
-- **Critical Analysis** (5 pts): Do you interpret results thoughtfully? Discuss limitations and tradeoffs?
-- **Peer Reviews** (5 pts): Did you provide constructive feedback on two classmates' projects?
-
-See the full [rubric](https://lauren897.github.io/cds593-private/rubrics.html#portfolio-piece-rubric) for details.
-
-## Suggested Repository Structure
-
-You're free to organize this however makes sense for your project, but here's a structure that works well:
-
-```
-your-portfolio-piece/
-├── README.md (this file - update it with your project details)
-├── requirements.txt or equivalent
-├── notebooks/
-│   └── main_analysis.ipynb (or multiple notebooks)
-├── src/ (optional - if you refactor code into modules)
-├── data/ (see note below about data)
-├── outputs/ (figures, saved models, etc.)
-```
-
-**About data**: If your dataset is small (<10 MB), you can include it in the repo. For larger datasets, put instructions in your README for how to download/access it, and add data files to `.gitignore`.
-
-## Writing a Good README
-
-Once you've completed your project, update this README to include:
-
-1. **Project Title** - make it descriptive
-2. **Overview** - 2-3 sentences: what problem are you solving and why?
-3. **Methods** - what approaches did you use? Why these choices?
-4. **Key Results** - what did you find? (keep it brief, details go in the notebook)
-5. **How to Run** - step-by-step instructions so someone can reproduce your work
-6. **Requirements** - what packages/versions are needed?
-
-Your README should make it easy for someone to understand what you did and run your code.
-
-## Peer Review Process
-
-You'll be assigned two classmates' repositories to review. Provide your feedback through **pull requests**:
-
-1. Clone your assigned classmate's repository to your machine
-2. Read through their notebooks, scripts, and documentation
-3. Try running the code yourself
-4. Create a pull request with inline comments on their code/analysis
-5. In the PR description, provide overall feedback addressing:
-   - What worked well conceptually and technically?
-   - What could be clearer in the documentation or analysis?
-   - Specific suggestions for deeper analysis or improvements
-   - Overall strengths of the project
-
-Be constructive and specific. Good peer reviews identify both strengths and areas for growth.
-
-You are *not* grading each other's pieces, just providing feedback.
-
-## Timeline
-
-- **Friday, Feb 20**: Portfolio piece due (push your final version to this repo)
-- **Friday, Feb 27**: Peer reviews due (submit PRs with feedback to your assigned classmates' repos)
-
-## Questions?
-
-We can discuss more in class, in office hours, in discussion, and you can ask on Piazza.
+To install the required packages, run:
+`pip install -r requirements.txt`
